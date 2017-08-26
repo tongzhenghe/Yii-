@@ -1,0 +1,80 @@
+success
+goods/index
+一：
+goods商品列表显示：
+name	varchar(20)	商品名称
+sn	varchar(20)	货号
+logo	varchar(255)	LOGO图片
+goods_category_id	int	商品分类id（链表goods_category）
+brand_id	int	品牌分类（brand表）（链表嵌套）
+market_price	decimal(10,2)	市场价格
+shop_price	decimal(10, 2)	商品价格
+stock	int	库存
+is_on_sale	int(1)	是否在售(1在售 0下架)
+status	inter(1)	状态(1正常 0回收站)
+sort	int()	排序
+create_time	int()	添加时间
+
+要求：
+商品增删改查
+商品相册图片添加,删除和列表展示（放到另外一个页面显示：需要两个模型）===
+商品列表页可以进行搜索
+新增商品自动生成sn,规则为年月日+今天的第几个商品,比如20160530+00001
+商品详情使用ueditor文本编辑器
+记录每天创建商品数
+
+
+商品分类：
+goods_category 商品分类
+字段名	类型	注释
+id	primaryKey
+tree	int()	树id
+lft	int()	左值
+rgt	int()	右值
+depth	int()	层级
+name	varchar(50)	名称
+parent_id	int()	上级分类id
+intro	text()
+
+
+
+品牌：
+brand 品牌
+
+字段名	类型	注释
+id	primaryKey
+name	varchar(50)	名称
+intro	text	简介
+logo	varchar(255)	LOGO图片
+sort	int(11)	排序
+status	int(2)	状态(-1删除 0隐藏 1正常)
+goods_intro 商品详情表
+字段名	类型	注释
+goods_id	int	商品id
+content	text	商品描述
+
+
+图片：
+goods_gallery 商品图片表
+字段名	类型	注释
+id	primaryKey
+goods_id	int	商品id
+path	varchar(255)	图片地址
+
+
+goods_day_count：
+思路：
+问题：求出商品的个数
+1：先将时间得出来:只显示年份
+再根据主表创建时间和商品个数得出
+2;在跟据时间利用Group By sql语句进行计算
+通过主表id查询出count总条数
+
+
+
+商品分页未完成
+
+
+
+
+
