@@ -494,18 +494,18 @@
 					<tbody>
 
 
-
+<?php foreach ($datas as $k=>$value):;?>
 						<tr>
-							<td><a href="">471196680</a></td>
-							<td><a href=""><img src="/images/order2.jpg" alt="" /></a></td>
-							<td>王超平</td>
-							<td>￥169.00 货到付款</td>
-							<td>2013-02-20 23:00:00</td>
-							<td>已完成</td>
+							<td><a href=""><?php $value['id'];?></a></td>
+							<td><a href=""><img src="<?php $value['logo'];?>" alt="" /></a></td>
+							<td><?php $value['goods_name'];?></td>
+							<td>￥<?php $value['total'];?>货到付款</td>
+							<td><?php $value['id'];?></td>
+							<td><?php $value['status'];?></td>
 							<td><a href="">查看</a> | <a href="">删除</a></td>
 						</tr>
 
-
+<?php endforeach;?>
 
 
 

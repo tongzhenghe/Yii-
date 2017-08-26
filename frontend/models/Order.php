@@ -42,13 +42,13 @@ class Order extends \yii\db\ActiveRecord
         1=>['顺丰快递',20,'价格贵，速度快，服务好'],
         2=>['EMS',15,'价格贵，速度一般，服务一般'],
         ];
-    public static $orderss = [
-        1=>['微信支付宝','两分钟到账'],
+    public static $orders = [
+        1=>['微信支付宝   两分钟到账'],
     ];
     public function rules()
     {
         return [
-            [['member_id', 'name', 'province', 'city', 'area', 'address', 'tel', 'delivery_id', 'delivery_name', 'delivery_price', 'payment_id', 'payment_name', 'total', 'status', 'trade_no', 'create_time'], 'required'],
+            [['name', 'province', 'city', 'area', 'address', 'tel', 'delivery_id', 'delivery_name', 'payment_id', 'payment_name', 'total', 'create_time'], 'required'],
             [['member_id', 'delivery_id', 'payment_id', 'status', 'create_time'], 'integer'],
             [['delivery_price', 'total'], 'number'],
             [['name', 'province', 'city', 'area', 'address', 'payment_name', 'trade_no'], 'string', 'max' => 30],

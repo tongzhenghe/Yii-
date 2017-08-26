@@ -52,7 +52,7 @@
 <!-- 页面头部 end -->
 
 <div style="clear:both;"></div>
-
+<form method="post" action="<?=\yii\helpers\Url::to(['home/order'])?>" >
 <!-- 主体部分 start -->
 <div class="fillin w990 bc mt15">
     <div class="fillin_hd">
@@ -61,16 +61,12 @@
 
     <div class="fillin_bd">
 
-
-
-
         <!-- 收货人信息  start-->
         <div class="address">
             <h3>收货人信息</h3>
             <div class="address_info">
                 <?php foreach ($address as $a):;?>
-                <p>
-                    <input type="radio" value="1" name="address_id"/><?=$a->consignee;?><?=$a->tel;?><?=$a->town;?><?=$a->district;?><?=$a->place;?><?=$a->detailedAddress;?></p>
+                <p><input type="radio" value="<?=$a->id;?>"  checked="checked" name="address_id"/><?=$a->consignee;?><?=$a->tel;?><?=$a->town;?><?=$a->district;?><?=$a->place;?><?=$a->detailedAddress;?></p>
            <?php endforeach;?>
             </div>
 
@@ -82,7 +78,7 @@
         <div class="delivery">
             <h3>送货方式 </h3>
 
-            <form method="post" action="<?=\yii\helpers\Url::to(['home/order-list'])?>" >
+
             <div class="delivery_select">
                 <table>
                     <thead>
@@ -96,9 +92,10 @@
                     <!--送货方式-->
 
                 <?php foreach (\frontend\models\Order::$deliveries as $id=>$delivery):;?>
+
                     <tr class="cur">
                         <td>
-                            <input type="radio" name="delivery_id"  checked="checked" /><?=$delivery[0];?>
+                            <input type="radio" value="<?=$id?>" name="delivery_id"  checked="checked" /><?=$delivery[0];?>
                         </td>
 <!--                       -->
                         <td>￥<?=$delivery[1]?></td>
@@ -120,9 +117,9 @@
 
             <div class="pay_select">
                 <table>
-                    <?php foreach (\frontend\models\Order::$orderss as $s=>$val):;?>
+                    <?php foreach (\frontend\models\Order::$orders as $id=>$val):;?>
                     <tr>
-                        <td class="col1"><input type="radio" name="payment_id" /><?=$val[0];?></td>
+                        <td class="col1"><input type="radio" value="<?=$id;?>"   checked="checked" name="payment_id" /><?=$val[0];?></td>
                     </tr>
                     <?php endforeach;?>
                 </table>
@@ -136,23 +133,6 @@
 
 
             <div class="receipt_select ">
-<!--                <form action="">-->
-<!--                    <ul>-->
-<!--                        <li>-->
-<!--                            <label for="">发票抬头：</label>-->
-<!--                            <input type="radio" name="type" checked="checked" class="personal" />个人-->
-<!--                            <input type="radio" name="type" class="company"/>单位-->
-<!--                            <input type="text" class="txt company_input" disabled="disabled" />-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <label for="">发票内容：</label>-->
-<!--                            <input type="radio" name="content" checked="checked" />明细-->
-<!--                            <input type="radio" name="content" />办公用品-->
-<!--                            <input type="radio" name="content" />体育休闲-->
-<!--                            <input type="radio" name="content" />耗材-->
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                </form>-->
 
             </div>
         </div>
@@ -211,16 +191,14 @@
         <!-- 商品清单 end -->
 
     </div>
-
     <div class="fillin_ft">
        <input type="submit" value="">
-        <p>应付总额：<strong>￥5076.00元</strong></p>
+        <p>应付总额：<strong>￥<?=$val->sort*$val->shop_price;?>元</strong></p>
 
     </div>
-  </form>
 </div>
 <!-- 主体部分 end -->
-
+</form>
 <div style="clear:both;"></div>
 <!-- 底部版权 start -->
 <div class="footer w1210 bc mt15">
