@@ -175,7 +175,7 @@
                 <?php foreach($goods as $val):;?>
 
                 <tr>
-                    <td class="col1"><a href=""><img src="<?="http://home.yiishop.com".$val->logo;?>" alt="" /></a>  <strong><a href=""><?=$val->name;?></a></strong></td>
+                    <td class="col1"><a href=""><img src="<?='http://admin.yiishop.com'.$val->logo;?>" alt="" /></a>  <strong><a href=""><?=$val->name;?></a></strong></td>
                     <td class="col3">￥<?=$val->shop_price;?></td>
                     <td class="col4"> <?=$val->sort;?></td>
                     <td class="col5"><span>￥<?=$val->sort*$val->shop_price;?></span></td>
@@ -187,7 +187,7 @@
                     <td colspan="5">
                         <ul>
                             <li>
-                                <span>4 件商品，总商品金额：</span>
+                                <span><?=$val->sort;?> 件商品，总商品金额：</span>
                                 <em>￥5316.00</em>
                             </li>
                             <li>
@@ -200,7 +200,7 @@
                             </li>
                             <li>
                                 <span>应付总额：</span>
-                                <em>￥5076.00</em>
+                                <em>￥<?=$val->sort*$val->shop_price;?></em>
                             </li>
                         </ul>
                     </td>

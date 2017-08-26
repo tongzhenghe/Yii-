@@ -138,26 +138,20 @@ class HomeController extends Controller
                $carts = [];
            }else{
                $carts = unserialize($carts);
-
            }
             //$carts = [1=>10,3=>20];
         }else{
             $user_id = \yii::$app->user->getId();
             //获取数据库cart里面的goodsid
-            $cartObj = Cart::find()->where(['member_id'=>$user_id])->one();
-            if($cartObj==null){//如果购物车存在
-               $cartObj = [];
-                }else{
-//                foreach ($cartObj as $k=>$value){
-                    if($cartObj->goods_id) {//如果商品存在
-                        $cartObj[$cartObj->goods_id] = $cartObj->amount;
-                    }
-                  }
-            //}
+            $cartObj = Cart::findAll(['member_id'=>$user_id]);
+            $carts = [];
+                foreach ($cartObj as $k=>$value){
+                        $carts[$value->goods_id] = $value->amount;
+               }
             }
         $models = Goods::find()->where(['in','id',array_keys($carts)])->all();//
-        var_dump($cartObj);exit;
-        return $this->render('flow',['models'=>$models,'carts'=>$cartObj]);
+        //var_dump($models);exit;
+        return $this->render('flow',['models'=>$models,'carts'=>$carts]);
         }
     //AJax修改商品数量
     public function actionAjax(){
@@ -225,12 +219,13 @@ class HomeController extends Controller
     public function actionOrder(){
         $cartsObj = Cart::findAll(['member_id'=>\yii::$app->user->identity->getId()]);
         foreach ($cartsObj as $k=>$v){
+            $carts[$v->goods_id] = $v->amount;
             //收获人地址
             $addressObj = Address::findAll(['member_id'=>\yii::$app->user->getId()]);
             //查商品
-            $goods = Goods::find()->all();
+            $models = Goods::find()->where(['in','id',array_keys($carts)])->all();//
         }
-        return $this->render('order',['goods'=>$goods,'address'=>$addressObj]);
+        return $this->render('order',['goods'=>$models,'address'=>$addressObj]);
         //开启事务
         $transaction = \yii::$app->db->beginTransaction();
         try{
@@ -238,23 +233,23 @@ class HomeController extends Controller
             $oderObj = new Order();
             //填写地址信息
             $address = Address::findOne(['id'=>\yii::$app->request->post('address_id')]);
-            $oderObj->name = $address->consignee;//收货人
-            $oderObj->tel = $address->tel;  //电话。
-            $oderObj->province = $address->town;//市
-            $oderObj->city = $address->district;//区县
-            $oderObj->area = $address->place;//地方
-            //送货方式
-            $oderObj->delivery_id = \yii::$app->request->post('delivery_id');
-            $oderObj->delivery_name = Order::$deliveries[$oderObj->delivery_id][0];//快递方式
-            $oderObj->delivery_price = Order::$deliveries[$oderObj->delivery_id][1];//价格
-            //支付方式
-            $order = Order::findOne(['id'=>\yii::$app->request->post('payment_id')]);
-            $order->payment_name = Order::$orderss[$order->payment_id][0];
-            if($oderObj->validate()){
-                //保存订单
-                $oderObj->save();
-            }else{
-                //提示错误信息
+                $oderObj->name = $address->consignee;//收货人
+                $oderObj->tel = $address->tel;  //电话。
+                $oderObj->province = $address->town;//市
+                $oderObj->city = $address->district;//区县
+                $oderObj->area = $address->place;//地方
+                //送货方式
+                $oderObj->delivery_id = \yii::$app->request->post('delivery_id');
+                $oderObj->delivery_name = Order::$deliveries[$oderObj->delivery_id][0];//快递方式
+                $oderObj->delivery_price = Order::$deliveries[$oderObj->delivery_id][1];//价格
+                //支付方式
+                $order = Order::findOne(['id'=>\yii::$app->request->post('payment_id')]);
+                $order->payment_name = Order::$orderss[$order->payment_id][0];
+                if($oderObj->validate()){
+                    //保存订单
+                    $oderObj->save();
+                }else{
+                    //提示错误信息
                 var_dump($oderObj->getErrors());exit;
             }
                 //依次检查购物车的商品库存
@@ -287,7 +282,6 @@ class HomeController extends Controller
             //提交事务
             $transaction->commit();
             //显示订单页面
-
 
         }catch (Exception $e){
             //如果不够回滚
