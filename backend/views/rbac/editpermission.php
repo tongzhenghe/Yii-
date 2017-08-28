@@ -8,5 +8,5 @@
 $form =\yii\widgets\ActiveForm::begin();
 echo $form->field($model,'name');//角色名称
 echo $form->field($model,'description');//描述
-echo \yii\helpers\Html::submitButton(   '编辑权限',['class'=>'default']);
+echo \yii\helpers\Html::submitButton(   '编辑权限',['class'=>'btn btn-info']);
 \yii\widgets\ActiveForm::end();

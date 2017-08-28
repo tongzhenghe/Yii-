@@ -47,13 +47,13 @@ class AdminController extends Controller
         $admins = Admin::find()->where(['status' => 1]);
         $page = new yii\data\Pagination([
             'totalCount'=>$admins->count(),
-            'defaultPageSize'=>6
+            'defaultPageSize'=>2
         ]);
         $admin = $admins->offset($page->offset)->limit($page->pageSize)->all();
         //返回给试图
         return $this->render('index', ['admins' => $admin,'pager'=>$page]);
     }
-    //添加
+    //为用户添加角色
     public function actionAdd()
     {
         //实例化模型
@@ -114,17 +114,16 @@ class AdminController extends Controller
     //删除
     public function actionDel($id)
     {
-//通过id删除一条数据
-$delModel = Admin::findOne(['id' => $id]);
-//改变信息状态
-$delModel->status = -1;
-//保存数据
-$delModel->save();
-//提示信息
-yii::$app->session->setFlash('default', '删除成功');
-//跳转页面
-$this->redirect(['index']);
-
+        //通过id删除一条数据
+        $delModel = Admin::findOne(['id' => $id]);
+        //改变信息状态
+        $delModel->status = -1;
+        //保存数据
+        $delModel->save();
+        //提示信息
+        yii::$app->session->setFlash('default', '删除成功');
+        //跳转页面
+        $this->redirect(['index']);
     }
     //登陆
     public function actionLogin()

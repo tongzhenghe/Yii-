@@ -77,7 +77,7 @@
                 <a href="javascript:;" class="add_num"></a>
             </td>
             <td class="col5">￥<span><?=$carts[$model->id]*$model->shop_price;?></span></td>
-            <td class="col6"><a href="<?=\yii\helpers\Url::to(['home/del','id'=>$model->id])?>">删除</a></td>
+            <td class="col6"><a id="del" href="<?php $url = \yii\helpers\Url::to(['ajax-del'])?>">删除</a></td>
         </tr>
       <?php endforeach;?>
         </tbody>
@@ -122,4 +122,41 @@
 </div>
 <!-- 底部版权 end -->
 </body>
+
+<!-- <td class="col6"><a id="del" href="<?php $url = \yii\helpers\Url::to(['ajax-del'])?>">删除</a></td>-->
+
+<?php
+/**
+ * @var $this \yii\web\View
+ */
+$this->registerJs(new \yii\web\JsExpression(
+        <<<JS
+    $("#del").on('click','.col6',function() {
+        if (confirm('确定删除吗？')){
+            
+            
+            
+        }
+      
+    })
+
+
+
+
+
+JS
+
+
+
+
+
+
+))
+
+
+
+
+;?>
+
+
 </html>

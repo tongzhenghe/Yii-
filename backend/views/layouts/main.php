@@ -45,14 +45,14 @@
 //                $menuItems[] = ['label' => 'Signup', 'url' => ['site/signup']];
                 $menuItems[] = ['label' => '登陆', 'url' => ['admin/login']];
             } else {
-//                $menuItems[] = '<li>'
-//                    . Html::beginForm(['/site/logout'], 'post')
-//                    . Html::submitButton(
-//                        'Logout (' . Yii::$app->user->identity->username . ')',
-//                        ['class' => 'btn btn-link logout']
-//                    )
-//                    . Html::endForm()
-//                    . '</li>';
+                $menuItems[] = '<li>'
+                    . Html::beginForm(['/site/logout'], 'post')
+                    . Html::submitButton(
+                        '退出登陆 (' . Yii::$app->user->identity->username . ')',
+                        ['class' => 'btn btn-link logout']
+                    )
+                    . Html::endForm()
+                    . '</li>';
                 $menuItems = array_merge($menuItems,\yii::$app->user->identity->getMenuItems());
             }
             echo Nav::widget([

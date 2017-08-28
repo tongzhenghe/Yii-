@@ -13,7 +13,7 @@ class RbacFilter extends \yii\base\ActionFilter
     //声明过滤器方法
     public function beforeAction($action)
     {   //根据当前id限制访问权限
-        if(!\yii::$app->user->can($action->uniqueId)){//判定只允许访问给定的权限
+        if(\yii::$app->user->can($action->uniqueId)){//判定只允许访问给定的权限
             //判定是否为游客
             if(\yii::$app->user->isGuest){
                 //跳转到登陆页面

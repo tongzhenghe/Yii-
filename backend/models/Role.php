@@ -65,7 +65,6 @@ class Role extends  Model
     }
     //编辑功能
     public function editRole($name){
-
         //实例化authmanger组件
         $authManger = \yii::$app->authManager;
         //获取角色
@@ -92,12 +91,8 @@ class Role extends  Model
             }
             return true;
         }
-
-
-
     }
-
-   public static function getPerssions(){
+    public static function getPerssions(){
         //获取所有权限
        $perssions = \yii::$app->authManager->getPermissions();
        //返回视图

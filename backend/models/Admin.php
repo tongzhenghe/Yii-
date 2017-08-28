@@ -33,8 +33,8 @@ class Admin extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'email', 'status'], 'required'],//添加功能
-            [['status', 'created_at', 'updated_at', 'last_login_time', 'last_login_ip'], 'integer'],
+            [['username', 'email', 'updated_at', 'status'], 'required'],//添加功能
+            [['status', 'created_at', 'last_login_time', 'last_login_ip'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['password'], 'string'],
             [['auth_key'], 'string', 'max' => 4334],
@@ -42,10 +42,8 @@ class Admin extends ActiveRecord implements IdentityInterface
             [['email'], 'unique'],
             [['email'], 'email'],//验证email
             [['roles'], 'safe']
-
         ];
     }
-
     public function attributeLabels()
     {
         return [
@@ -211,17 +209,15 @@ class Admin extends ActiveRecord implements IdentityInterface
     public function getChildrens(){
         return $this->hasMany(self::className(),['parent_id'=>'id']);
     }
-
+    //导航菜单列表
     public function getMenuItems(){
         $menuItems = [];
         $menus = Menu::findAll(['parent_id'=>0]);
         foreach ($menus as $menu){
-//            var_dump($menu->name);exit;
             $children = Menu::findAll(['parent_id'=>$menu->id]);
             $items = [];
             //4遍历所有子菜单
             foreach ($children as $child){
-//                var_dump($child->url);exit;
                 //根据用户权限决定是否添加到items里面
                 if(Yii::$app->user->can($child->url)){
                     $items[] = ['label' =>$child->name, 'url' => [$child->url]];

@@ -43,12 +43,19 @@ class Order extends \yii\db\ActiveRecord
         2=>['EMS',15,'价格贵，速度一般，服务一般'],
         ];
     public static $orders = [
-        1=>['微信支付宝   两分钟到账'],
+        1=>['微信支付宝'],
     ];
+    public static $staus = [//订单状态（0已取消1待付款2待发货3待收货4完成）
+        1=>['已取消'],
+        2=>['待付款'],
+        3=>['待发货'],
+        4=>['待收货'],
+        ];
     public function rules()
     {
         return [
-            [['name', 'province', 'city', 'area', 'address', 'tel', 'delivery_id', 'delivery_name', 'payment_id', 'payment_name', 'total', 'create_time'], 'required'],
+            [['name', 'province','member_id', 'city', 'area', 'address', 'tel', 'delivery_id', 'payment_id', 'total', 'create_time'], 'required'],
+            [['delivery_name', 'payment_name',],'safe'],
             [['member_id', 'delivery_id', 'payment_id', 'status', 'create_time'], 'integer'],
             [['delivery_price', 'total'], 'number'],
             [['name', 'province', 'city', 'area', 'address', 'payment_name', 'trade_no'], 'string', 'max' => 30],

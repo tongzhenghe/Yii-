@@ -40,6 +40,7 @@ class RbacController extends Controller
         return $this->render('roles',['roles'=>$Roles]);
     }
     //编辑角色
+    //编辑角色
     public function actionEditRole($name){
         //获取角色
         $role = yii::$app->authManager->getRole($name);
@@ -49,7 +50,6 @@ class RbacController extends Controller
         //绑定表单&&验证数据
         if($roleModels->load(yii::$app->request->post())&&$roleModels->validate()){
             //获取name
-
             //调用模型方法编辑
             $roleModels->editRole($name);
             //保存数据
@@ -117,7 +117,7 @@ class RbacController extends Controller
         if(yii::$app->request->isPost){//判定是否为post接受数据
             if($model->load(yii::$app->request->post())){//执行
                 if($model->validate()){//验证数据合法性
-                    if($model->name===$permissionObj->name||$model->description===$permissionObj->description){//因为是修改，所以数据库里面本身存在，所以不能直接通过是否存在来判定。因为一致存在
+                    if($model->name==$permissionObj->name||$model->description==$permissionObj->description){//因为是修改，所以数据库里面本身存在，所以不能直接通过是否存在来判定。因为一致存在
                         $model->addError('name','权限名已存在');//提示信息
                         $model->addError('description','权限描述不能同名');//提示信息
                     }else{

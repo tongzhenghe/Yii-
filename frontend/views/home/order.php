@@ -153,22 +153,21 @@
                 <tbody>
 
                 <?php foreach($goods as $val):;?>
-
                 <tr>
                     <td class="col1"><a href=""><img src="<?='http://admin.yiishop.com'.$val->logo;?>" alt="" /></a>  <strong><a href=""><?=$val->name;?></a></strong></td>
                     <td class="col3">￥<?=$val->shop_price;?></td>
-                    <td class="col4"> <?=$val->sort;?></td>
-                    <td class="col5"><span>￥<?=$val->sort*$val->shop_price;?></span></td>
+                    <td class="col4"><?=$cart[$val->id];?></td>
+                    <td class="col5"><span>￥<?=$val->shop_price*$cart[$val->id];?></span></td>
                 </tr>
-<?php endforeach;?>
+                <?php endforeach;?>
                 </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="5">
                         <ul>
                             <li>
-                                <span><?=$val->sort;?> 件商品，总商品金额：</span>
-                                <em>￥5316.00</em>
+                                <span><?=count($goods);?>件商品，总商品金额：</span>
+                                <em>￥</em>
                             </li>
                             <li>
                                 <span>返现：</span>

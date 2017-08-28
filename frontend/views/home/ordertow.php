@@ -496,15 +496,14 @@
 
 <?php foreach ($datas as $k=>$value):;?>
 						<tr>
-							<td><a href=""><?php $value['id'];?></a></td>
-							<td><a href=""><img src="<?php $value['logo'];?>" alt="" /></a></td>
-							<td><?php $value['goods_name'];?></td>
-							<td>￥<?php $value['total'];?>货到付款</td>
-							<td><?php $value['id'];?></td>
-							<td><?php $value['status'];?></td>
+							<td><?=$value['id'];?></td>
+							<td><img src="<?='http://admin.yiishop.com'.$value['logo'];?>"/><?=$value['goods_name'];?></td>
+                            <td><?=$value["name"];?></td>
+							<td>￥<?=$value['total'];?>货到付款</td>
+                            <td><?=$value['create_time'];?></td>
+                            <td><?=$value['status'];?></td>
 							<td><a href="">查看</a> | <a href="">删除</a></td>
 						</tr>
-
 <?php endforeach;?>
 
 
