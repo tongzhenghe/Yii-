@@ -16,13 +16,13 @@ return [
     'defaultRoute' => 'admin/login',
     'components' => [
         //数据库配置
-        'db' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=yiishop',
-            'username' => 'root',
-            'password' => 'root',
-            'charset' => 'utf8',
-        ],
+//        'db' => [
+//            'class' => 'yii\db\Connection',
+//            'dsn' => 'mysql:host=127.0.0.1;dbname=yiishop',
+//            'username' => 'root',
+//            'password' => 'root',
+//            'charset' => 'utf8',
+//        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],

@@ -14,7 +14,7 @@ use yii\web\Controller;
 use yii;
 class AddressController extends Controller
 {
-    public $enableCsrfValidation = false;//接受表单省去前缀
+    public $enableCsrfValidation = false;//关闭单个action的csrf验证
     public function actionIndex()
     {
         //实例化model

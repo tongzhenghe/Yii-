@@ -74,11 +74,11 @@ class Role extends  Model
             return false;
         }else{
             //创建角色
-            $role = $authManger->update($this->name);
+            $role = $authManger->createRole($this->name);
             //为角色添加描述
             $role->description = $this->description;
             //保存角色到数据库
-            $authManger->add($role);
+            $authManger->update($name,$role);
             //判定权限是否为数组类型（如果选择权限则为数组类型，不选为字符串）
             if(is_array($this->permissions)){//如果给定权限存在就遍历（为数组）没有就不遍历（字符串）
                 foreach ($this->permissions as $permissionName){

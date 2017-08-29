@@ -55,7 +55,6 @@ class GoodsController extends Controller
              //调用模型执行接受数据和验证数据
             $addModel->load(yii::$app->request->post());
             $intro->load(yii::$app->request->post());
-
 //            $countModel->day = $time;
             //计算货号
 //            $sn = $time.str_pad($count+1,4,0,STR_PAD_LEFT);
