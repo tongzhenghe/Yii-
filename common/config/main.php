@@ -15,8 +15,5 @@ return [
     'password' => 'root',
     'charset' => 'utf8',
        ],
-        'request' => [
-            'csrfParam' => '_csrf-backend',
-        ],
     ],
 ];
